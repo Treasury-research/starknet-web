@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --port 6700",
     "build": "next build",
-    "start": "next start --port 6200",
+    "start": "next start --port 6000",
     "lint": "next lint"
   },
   "resolutions": {
