@@ -15,7 +15,7 @@ import P6 from '../statics/p6.svg'
 import P7 from '../statics/p7.svg'
 import P8 from '../statics/p8.svg'
 import HeadImg from '../statics/head.svg'
-import { useAddressList, loginAccountState } from "../store/state";
+import { useAddressList, conditionState } from "../store/state";
 import { Checkbox } from 'antd';
 import { CloseOutlined,CheckOutlined } from '@ant-design/icons';
 import useWeb3Context from "../hooks/useWeb3Context";
@@ -50,7 +50,7 @@ export default function Home() {
   const router = useRouter();
   const { addressList, setAddressList } = useAddressList();
 
-  const { loginAccount, setLoginAccount } = loginAccountState();
+  const { isCondition, setIsCondition } = conditionState();
 
   const [loading, setLoading] = useState(false);
 
@@ -125,6 +125,18 @@ export default function Home() {
       })
     }
   }
+
+  useEffect(() => {
+    if(selectTab[1]['check'] && 
+    selectTab[2]['check'] && 
+    selectTab[3]['check'] && 
+    selectTab[4]['check'] 
+    ){
+      setIsCondition(true)
+    }else{
+      setIsCondition(false)
+    }
+  },[selectTab])
 
   return (
     <div className="w-full h-full boundle-bg relative flex justify-between px-10 gap-20 text-[#fff] items-center">

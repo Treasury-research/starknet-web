@@ -36,8 +36,6 @@ export default function Home() {
 
       setProvider(starknetX)
 
-      setAddressList([])
-
       setLoginAccount(starknetX.account.address)
 
       const res = await starknetX.provider.callContract(
@@ -49,6 +47,7 @@ export default function Home() {
       )
       console.log(res)
       if(res && res.result && res.result[0] === '0x0'){
+        setAddressList([])
         router.push('/bundle')
       }
 

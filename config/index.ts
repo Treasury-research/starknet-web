@@ -12,6 +12,8 @@ export const INFURA_PROJECT_ID = '2KAjFN0TnHTV4uzbto3tWT5oC34'
 
 export const INFURA_SECRET = '4c350bdbedcbe13136f251eab17583b2';
 
+export const starkNetContract = '0x052a747d30c1d9ce73fdcbfa9983e7a99ad64f9aec9eb82c1d87a979ab56be2c';
+
 export default {
   ...envConf,
 };

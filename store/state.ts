@@ -64,3 +64,19 @@ export const starkProviderState:any = create()(
     }
   )
 );
+
+export const conditionState:any = create()(
+  persist(
+    (set, get) => ({
+      isCondition: false,
+      setIsCondition: (val: any) => {
+        set({
+          isCondition: val,
+        });
+      }
+    }),
+    {
+      name: "condition",
+    }
+  )
+);
