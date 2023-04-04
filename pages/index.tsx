@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import Image from 'next/image'
 import P1 from '../statics/img/browser.png'
-import { connect } from "get-starknet"
 import { loginAccountState,starkProviderState,useAddressList } from "../store/state";
 import { useRouter } from "next/router";
 import { shortenAddr } from './../lib/tool'
@@ -10,6 +9,7 @@ import useWeb3Context from "../hooks/useWeb3Context";
 import Web3 from 'web3'
 import Step from '../components/Step'
 import { toast } from "react-toastify";
+import { connect } from "get-starknet"
 
 export default function Home() {
   const router = useRouter();
@@ -19,12 +19,18 @@ export default function Home() {
   const { connectWallet } = useWeb3Context();
   
   const connector = async () => {
+console.log(connect)
+    const starknetX: any = await connect({
+      modalMode: "alwaysAsk",
+      modalTheme: "dark",
+      storeVersion: "chrome"
+  })
 
-    const starknetX: any = await connect()
     console.log(starknetX)
 
     if (!starknetX) {
       toast.info('User rejected wallet selection or silent connect found nothing')
+      return
     }
 
     await starknetX.enable()

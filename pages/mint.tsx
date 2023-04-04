@@ -32,6 +32,7 @@ export default function Home() {
 
       if (!starknetX) {
         toast.info("User rejected wallet selection or silent connect found nothing")
+        return
       }
 
       await starknetX.enable()
