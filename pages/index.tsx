@@ -66,7 +66,7 @@ export default function Home() {
         }
 
       }else{
-        toast.success('Switch your wallet to the testnet!')
+        toast.info('Switch your wallet to the testnet!')
       }
     } else {
 
