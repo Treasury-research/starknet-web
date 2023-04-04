@@ -53,11 +53,11 @@ export default function Home() {
     }
   }
 
-  useEffect(() => {
-    if(!isCondition){
-      router.push('/bundle')
-    }
-  },[])
+  // useEffect(() => {
+  //   if(!isCondition){
+  //     router.push('/bundle')
+  //   }
+  // },[])
 
   return (
     <div className="relative w-full h-full">
