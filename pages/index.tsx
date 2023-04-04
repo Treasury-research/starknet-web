@@ -48,7 +48,7 @@ export default function Home() {
 
       if(starknetX.id === 'braavos'){
         if(starknetX.account.chainId !== '0x534e5f474f45524c49'){
-          toast.error('Switch your wallet to the SN_Goerli!')
+          toast.error('Switch your wallet to the SN Goerli!')
           return false
         }
       }
