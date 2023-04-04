@@ -6,6 +6,7 @@ import { loginAccountState,starkProviderState,useAddressList } from "../store/st
 import { useRouter } from "next/router";
 import { shortenAddr } from './../lib/tool'
 import useWeb3Context from "../hooks/useWeb3Context";
+import dynamic from 'next/dynamic'
 import Web3 from 'web3'
 import Step from '../components/Step'
 import { toast } from "react-toastify";
@@ -69,7 +70,7 @@ console.log(connect)
 
   return (
     <div className="w-full h-full home-bg relative">
-      <div onClick={() => connector()} className="flex justify-center items-center absolute bottom-[30%] right-[15%] text-[#fff] w-[24%] border-[1px] border-[#4A4A4A] px-[10px] py-[10px] font-[600] rounded-[4px] mb-[10px] cursor-pointer">
+       <div onClick={() => connector()} className="flex justify-center items-center absolute bottom-[30%] right-[15%] text-[#fff] w-[24%] border-[1px] border-[#4A4A4A] px-[10px] py-[10px] font-[600] rounded-[4px] mb-[10px] cursor-pointer">
         <span>Connect Wallet</span>
       </div>
       <div className="absolute bottom-[40px] left-[50%] translate-x-[-51%] w-full flex items-center justify-center">
