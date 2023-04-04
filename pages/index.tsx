@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Image from 'next/image'
 import P1 from '../statics/img/browser.png'
-import { connect, WalletProvider } from "@argent/get-starknet"
+import { connect } from "get-starknet"
 import { loginAccountState,starkProviderState,useAddressList } from "../store/state";
 import { useRouter } from "next/router";
 import { shortenAddr } from './../lib/tool'

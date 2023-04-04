@@ -7,7 +7,7 @@ import { shortenAddr } from './../lib/tool'
 import Step from '../components/Step'
 import { starkNetContract } from './../config'
 import api from './../api'
-import { connect, WalletProvider } from "@argent/get-starknet"
+import { connect } from "get-starknet"
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
