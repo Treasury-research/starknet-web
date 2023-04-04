@@ -41,7 +41,7 @@ export default function Home() {
       
       console.log(starknetX)
 
-      toast.success('Connect successed!')
+      
 
       setProvider(starknetX)
 
@@ -54,16 +54,20 @@ export default function Home() {
           calldata:[Web3.utils.hexToNumberString(starknetX.account.address)]
         }
       )
-      console.log(res)
-      if(res && res.result && res.result[0] === '0x0'){
-        setAddressList([])
-        router.push('/bundle')
-      }
-
-      if(res && res.result && res.result[0] === '0x1'){
-        router.push('/note')
-      }
       
+      if(res && res.result){
+        toast.success('Connect successed!')
+        if(res.result[0] === '0x0'){
+          setAddressList([])
+          router.push('/bundle')
+        }
+        if(res.result[0] === '0x1'){
+          router.push('/note')
+        }
+
+      }else{
+        toast.success('Switch your wallet to the testnet!')
+      }
     } else {
 
     }
