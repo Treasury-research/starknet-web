@@ -82,10 +82,10 @@ export default function Home() {
   }
 
   const nextStep = () => {
-    if(selectTab[1]['check'] && 
+    if(selectTab[0]['check'] && 
+    selectTab[1]['check'] && 
     selectTab[2]['check'] && 
-    selectTab[3]['check'] && 
-    selectTab[4]['check'] 
+    selectTab[3]['check'] 
     ){
       router.push('/mint')
     }else{
@@ -95,7 +95,7 @@ export default function Home() {
 
   const getHavData = async (addr) => {
 
-    const res: any = await api.get(`/api/check?addresses=${addr}`);
+    let res: any = await api.get(`/api/check?addresses=${addr}`);
 
     if(res.babCheck){
       setSelectTab((pre:any) => {
@@ -127,10 +127,10 @@ export default function Home() {
   }
 
   useEffect(() => {
-    if(selectTab[1]['check'] && 
+    if(selectTab[0]['check'] && 
+    selectTab[1]['check'] && 
     selectTab[2]['check'] && 
-    selectTab[3]['check'] && 
-    selectTab[4]['check'] 
+    selectTab[3]['check'] 
     ){
       setIsCondition(true)
     }else{
