@@ -11,6 +11,7 @@ import Web3 from 'web3'
 import Step from '../components/Step'
 import { toast } from "react-toastify";
 import { connect } from "get-starknet"
+import { starkNetContract } from './../config'
 
 export default function Home() {
   const router = useRouter();
@@ -20,7 +21,7 @@ export default function Home() {
   const { connectWallet } = useWeb3Context();
   
   const connector = async () => {
-console.log(connect)
+
     const starknetX: any = await connect({
       modalMode: "alwaysAsk",
       modalTheme: "dark",
@@ -48,7 +49,7 @@ console.log(connect)
 
       const res = await starknetX.provider.callContract(
         {
-          contractAddress: '0x00b2a79e54ff9c6b5a50cb6b60366c4ddb432ff44db1a847ccf7db6ea19c1eaf',
+          contractAddress: starkNetContract,
           entrypoint: 'balanceOf',
           calldata:[Web3.utils.hexToNumberString(starknetX.account.address)]
         }
