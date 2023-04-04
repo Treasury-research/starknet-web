@@ -29,7 +29,7 @@ export default function Home() {
     if (res && res.r && res.s) {
 
       const starknetX: any = await connect()
-
+      console.log(starknetX)
       if (!starknetX) {
         toast.info("User rejected wallet selection or silent connect found nothing")
         return
