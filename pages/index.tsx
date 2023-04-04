@@ -20,7 +20,8 @@ export default function Home() {
   
   const connector = async () => {
 
-    const starknetX: any = await connect({ modalMode: "alwaysAsk" })
+    const starknetX: any = await connect()
+    console.log(starknetX)
 
     if (!starknetX) {
       toast.info('User rejected wallet selection or silent connect found nothing')
