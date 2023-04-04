@@ -17,30 +17,32 @@ import P8 from '../statics/p8.svg'
 import HeadImg from '../statics/head.svg'
 import { useAddressList, loginAccountState } from "../store/state";
 import { Checkbox } from 'antd';
-import { CloseOutlined } from '@ant-design/icons';
+import { CloseOutlined,CheckOutlined } from '@ant-design/icons';
 import useWeb3Context from "../hooks/useWeb3Context";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 import { shortenAddr } from './../lib/tool'
 // const inter = Inter({ subsets: ['latin'] })
 import Step from '../components/Step'
+import api from './../api'
 
-const selectTab = [{
+const select = [{
   name: 'Hold a BABT',
   check: false,
   imgUrl: P5
 }, {
   name: 'Have a primary domain',
-  check: true,
+  check: false,
   imgUrl: P6
 },
 {
   name: 'Hold an NFT on Ethereum mainnet',
-  check: true,
+  check: false,
   imgUrl: P7
 },
 {
   name: 'Hold a Lens Profile NFT',
-  check: true,
+  check: false,
   imgUrl: P8
 }]
 
@@ -50,7 +52,11 @@ export default function Home() {
 
   const { loginAccount, setLoginAccount } = loginAccountState();
 
+  const [loading, setLoading] = useState(false);
+
   const [showConnect, setShowConnect] = useState(false);
+
+  const [selectTab, setSelectTab] = useState(select);
 
   const [activeIndex, setActiveIndex] = useState<any>('');
 
@@ -70,25 +76,65 @@ export default function Home() {
       if (!addressList.includes(res)) {
         console.log([...addressList, res])
         setAddressList([...addressList, res])
-        setShowConnect(false)
+        getHavData(res)
       }
     }
   }
 
   const nextStep = () => {
-    router.push('/mint')
+    if(selectTab[1]['check'] && 
+    selectTab[2]['check'] && 
+    selectTab[3]['check'] && 
+    selectTab[4]['check'] 
+    ){
+      router.push('/mint')
+    }else{
+      toast.info("conditions are not met");
+    }
+  }
+
+  const getHavData = async (addr) => {
+
+    const res: any = await api.get(`/api/check?addresses=${addr}`);
+
+    if(res.babCheck){
+      setSelectTab((pre:any) => {
+        pre[0]['check'] = true
+        return [...pre]
+      })
+    }
+
+    if(res.ensOrBnbCheck){
+      setSelectTab((pre:any) => {
+        pre[1]['check'] = true
+        return [...pre]
+      })
+    }
+
+    if(res.nftCheck){
+      setSelectTab((pre:any) => {
+        pre[2]['check'] = true
+        return [...pre]
+      })
+    }
+
+    if(res.lensCheck){
+      setSelectTab((pre:any) => {
+        pre[3]['check'] = true
+        return [...pre]
+      })
+    }
   }
 
   return (
     <div className="w-full h-full boundle-bg relative flex justify-between px-10 gap-20 text-[#fff] items-center">
-      <div className="h-[60%] w-1/2">
+      <div className="h-[70%] w-1/2">
         <p className="text-[30px] font-[600]">MANAGE BUNDLE</p>
-        <p className="text-[#BBE7E6]">Connect one or more addresses in your Constellation Bundle. The connected</p>
-
+        <p className="text-[#BBE7E6]">Connect one or more addresses in your Stellar Bundle. The connected</p>
         <p className="text-[#BBE7E6]"> addresses are only visibile to you.</p>
-        <div className=" bg-[rgba(187,231,230,.2)] p-4 mt-10">
+        <div className=" bg-[rgba(187,231,230,.1)] p-4 mt-10">
           <div className="flex items-center border-b-[1px] border-[rgba(255,255,255,.6)] pb-4">
-            <div>Constellation Bundle</div>
+            <div className="text-[#BBE7E6] text-[24px]">Stellar Bundle</div>
             <div onClick={() => setShowConnect(true)} className="ml-[auto] bg-[rgba(217,217,217,.3)] border-solid border-[rgba(255,255,255,.6)] cursor-pointer flex items-center justify-center px-3 py-[6px] rounded-[20px]">
               <Image
                 className="ml-[auto] mr-2 h-[16px] w-[16px]"
@@ -98,17 +144,17 @@ export default function Home() {
               <span className="text-[16px]">ADD</span>
             </div>
           </div>
-          <div>
+          <div className="min-h-[241px]">
             {
               addressList.map((t, i) => (
-                <div className={`flex items-center my-4 hover:bg-[rgba(187,231,230,.3)] py-2 px-4 cursor-pointer ${i === activeIndex ? 'bg-[rgba(187,231,230,.3)]' : ''}`} key={i} onClick={() => setActiveIndex(i)}>
+                <div className={`flex items-center my-4 hover:bg-[rgba(187,231,230,.2)] cursor-pointer py-2 px-4 cursor-pointer ${i === activeIndex ? 'bg-[rgba(187,231,230,.2)]' : ''}`} key={i} onClick={() => setActiveIndex( i)}>
                   <div className="flex items-center">
                     <Image
                       className="ml-[auto] mr-5"
                       src={HeadImg}
                       alt=""
                     />
-                    <span>{t}</span>
+                    <span>{shortenAddr(t)}</span>
                   </div>
                   <div className="ml-[auto]">
                     <Image
@@ -125,8 +171,8 @@ export default function Home() {
         </div>
       </div>
       <div className="h-[100%] w-1/2 flex items-center justify-center">
-        <div className="h-[60%] w-full">
-          <p className="text-[#BBE7E6] text-[24px] mb-6">Get a Crux SBT</p>
+        <div className="h-[70%] w-full">
+          <p className="text-[#BBE7E6] text-[24px] mb-6 mt-[73px]">Get a Crux SBT</p>
           <div className=" border-solid border-[1px] border-[rgba(255,255,255,0.7)] p-8 px-20">
             <p className="text-[#BBE7E6] text-[24px] mb-6">Meet all below conditions</p>
             <div>
@@ -142,7 +188,13 @@ export default function Home() {
                     </div>
                     <div className="px-4 ml-2 text-[#fff] text-[20px]">{t.name}</div>
                     <div className="w-[26px] h-[26px] bg-[#BBE7E6] flex items-center justify-center rounded-[50%] ml-[auto]">
-                      <CloseOutlined style={{ color: '#000' }} className="text-[#000]" />
+                      {
+                        t.check ? (
+                          <CheckOutlined style={{ color: '#000' }} className="text-[#000]" />
+                        ):(
+                          <CloseOutlined style={{ color: '#000' }} className="text-[#000]" />
+                        )
+                      }
                     </div>
                   </div>
                 ))
@@ -152,15 +204,6 @@ export default function Home() {
           <button onClick={() => nextStep()} className="float-right ml-[auto] mt-[20px] bg-[rgba(217,217,217,0.2)] px-3 py-1 cursor-pointer text-[20px] border-solid border-[1px] border-[rgba(255,255,255,0.4)]">Continue</button>
         </div>
       </div>
-
-      {/* {showConnect && (
-        <LoginConnect
-          onCancel={() => setShowConnect(false)}
-          onConnect={() => {
-            setShowConnect(true);
-          }}
-        />
-      )} */}
 
       {
         showConnect &&
@@ -195,7 +238,7 @@ export default function Home() {
         </div>
       }
 
-<div className="absolute bottom-[10%] left-[50%] translate-x-[-50%] w-full flex items-center justify-center">
+      <div className="absolute bottom-[40px] left-[50%] translate-x-[-50%] w-full flex items-center justify-center">
         <Step num={2} />
       </div>
     </div>

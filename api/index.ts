@@ -7,12 +7,7 @@ const api = axios.create({
 });
 
 api.interceptors.response.use((res) => {
-  if (res.data.code === 200) {
-    return res.data;
-  } else {
-    message.error(res.data.message);
-    return null;
-  }
+  return res.data;
 }, error => {
   const errObj = error.response.data
   console.log('error status code', errObj.statusCode)

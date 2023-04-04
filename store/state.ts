@@ -43,3 +43,24 @@ export const loginAccountState:any = create()(
     }
   )
 );
+
+export const starkProviderState:any = create()(
+  persist(
+    (set, get) => ({
+      provider: '',
+      setProvider: (val: any) => {
+        set({
+          provider: val,
+        });
+      },
+      clearProvider: () => {
+        set({
+          loginProvider: ''
+        });
+      },
+    }),
+    {
+      name: "provider",
+    }
+  )
+);

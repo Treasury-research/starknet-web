@@ -127,7 +127,7 @@ export default function Home() {
           <div className="h-[142px]"></div>
           <div className="bg-[rgba(187,231,230,.1)] w-full h-[311px]">
             <div className="flex items-center border-b-[1px] border-[rgba(255,255,255,.6)] p-4 px-10">
-              <div className="text-[#BBE7E6] text-[24px]">Constellation Bundle</div>
+              <div className="text-[#BBE7E6] text-[24px]">Stellar Bundle</div>
             </div>
             <div>
               {
@@ -182,7 +182,7 @@ export default function Home() {
         </div>
       }
 
-      <div className="absolute bottom-[10%] left-[50%] translate-x-[-50%] w-full flex items-center justify-center">
+      <div className="absolute bottom-[40px] left-[50%] translate-x-[-50%] w-full flex items-center justify-center">
         <Step num={4} />
       </div>
     </div>
