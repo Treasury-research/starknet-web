@@ -39,9 +39,19 @@ export default function Home() {
 
     if (starknetX.isConnected) {
       
-      console.log(starknetX)
+      if(starknetX.id === 'argentX'){
+        if(starknetX.chainId !== 'SN_GOERLI'){
+          toast.error('Switch your wallet to the Testnet!')
+          return false
+        }
+      }
 
-      
+      if(starknetX.id === 'braavos'){
+        if(starknetX.account.chainId !== '0x534e5f474f45524c49'){
+          toast.error('Switch your wallet to the SN_Goerli!')
+          return false
+        }
+      }
 
       setProvider(starknetX)
 
@@ -65,8 +75,6 @@ export default function Home() {
           router.push('/note')
         }
 
-      }else{
-        toast.info('Switch your wallet to the testnet!')
       }
     } else {
 

@@ -29,7 +29,7 @@ export default function Home() {
     if (res && res.r && res.s) {
 
       const starknetX: any = await connect()
-      console.log(starknetX)
+ 
       if (!starknetX) {
         toast.info("User rejected wallet selection or silent connect found nothing")
         return
@@ -38,6 +38,20 @@ export default function Home() {
       await starknetX.enable()
 
       if (starknetX.isConnected) {
+        
+        if(starknetX.id === 'argentX'){
+          if(starknetX.chainId !== 'SN_GOERLI'){
+            toast.error('Switch your wallet to the Testnet!')
+            return false
+          }
+        }
+  
+        if(starknetX.id === 'braavos'){
+          if(starknetX.account.chainId !== '0x534e5f474f45524c49'){
+            toast.error('Switch your wallet to the SN_Goerli!')
+            return false
+          }
+        }
 
         const res1 = await starknetX.account.execute(
           {
