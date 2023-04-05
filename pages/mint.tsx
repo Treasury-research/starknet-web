@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect } from "react";
-import Image from 'next/image'
 import { useAddressList, loginAccountState, conditionState } from "../store/state";
 import HeadImg from '../statics/head.svg'
 import { shortenAddr } from './../lib/tool'
@@ -10,6 +9,8 @@ import api from './../api'
 import { connect } from "get-starknet"
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import Image from 'next/image'
+import BotGif from './../components/BotGif'
 
 export default function Home() {
   const router = useRouter();
@@ -46,8 +47,8 @@ export default function Home() {
           }
         }
   
-        if(starknetX.id === 'braavos'){
-          if(starknetX.account.chainId !== '0x534e5f474f45524c49'){
+        if (starknetX.id === 'braavos') {
+          if (starknetX.account.baseUrl !== 'https://alpha4.starknet.io') {
             toast.error('Switch your wallet to the SN Goerli!')
             return false
           }
@@ -66,12 +67,6 @@ export default function Home() {
       }
     }
   }
-
-  // useEffect(() => {
-  //   if(!isCondition){
-  //     router.push('/bundle')
-  //   }
-  // },[])
 
   return (
     <div className="relative w-full h-full">
@@ -135,9 +130,10 @@ export default function Home() {
         </div>
       }
 
-      <div className="absolute bottom-[40px] w-full flex items-center justify-center" style={{ 'zIndex': '3' }}>
+      <div className="absolute bottom-[60px] w-full flex items-center justify-center" style={{ 'zIndex': '3' }}>
         <Step num={3} />
       </div>
+      <BotGif/>
     </div>
   )
 }

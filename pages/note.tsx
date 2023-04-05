@@ -23,6 +23,7 @@ import { useRouter } from "next/router";
 import { shortenAddr } from './../lib/tool'
 // const inter = Inter({ subsets: ['latin'] })
 import Step from '../components/Step'
+import BotGif from './../components/BotGif'
 
 const selectTab = [{
   name: 'Hold a BABT',
@@ -191,9 +192,11 @@ export default function Home() {
         </div>
       }
 
-      <div className="absolute bottom-[40px] left-[50%] translate-x-[-50%] w-full flex items-center justify-center">
+      <div className="absolute bottom-[60px] left-[50%] translate-x-[-50%] w-full flex items-center justify-center">
         <Step num={4} />
       </div>
+
+      <BotGif/>
     </div>
   )
 }
